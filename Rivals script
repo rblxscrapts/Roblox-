@@ -4,6 +4,229 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
+-- Define ScreenGui and MainFrame here
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "SolixHubLogin"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui") -- Parent immediately
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+MainFrame.BackgroundColor3 = Color3.fromRGB(16, 16, 16)
+MainFrame.BackgroundTransparency = 0.06
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.fromScale(0.5, 0.5)
+MainFrame.Size = UDim2.fromOffset(400, 370)
+MainFrame.Parent = ScreenGui
+
+
+-- UI Elements for the MainFrame
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = MainFrame
+
+local AcrylicEffect1 = Instance.new("ImageLabel")
+AcrylicEffect1.Name = "acrylicthing"
+AcrylicEffect1.Image = "rbxassetid://9968344105"
+AcrylicEffect1.ImageTransparency = 0.98
+AcrylicEffect1.ScaleType = Enum.ScaleType.Tile
+AcrylicEffect1.TileSize = UDim2.fromOffset(128, 128)
+AcrylicEffect1.BackgroundTransparency = 1
+AcrylicEffect1.Size = UDim2.fromScale(1, 1)
+AcrylicEffect1.ZIndex = 0
+AcrylicEffect1.Parent = MainFrame
+
+local AcrylicCorner1 = Instance.new("UICorner")
+AcrylicCorner1.CornerRadius = UDim.new(0, 12)
+AcrylicCorner1.Parent = AcrylicEffect1
+
+local AcrylicEffect2 = Instance.new("ImageLabel")
+AcrylicEffect2.Name = "acrylicthing"
+AcrylicEffect2.Image = "rbxassetid://9968344227"
+AcrylicEffect2.ImageTransparency = 0.9
+AcrylicEffect2.ScaleType = Enum.ScaleType.Tile
+AcrylicEffect2.TileSize = UDim2.fromOffset(128, 128)
+AcrylicEffect2.BackgroundTransparency = 1
+AcrylicEffect2.Size = UDim2.fromScale(1, 1)
+AcrylicEffect2.ZIndex = 0
+AcrylicEffect2.Parent = MainFrame
+
+local AcrylicCorner2 = Instance.new("UICorner")
+AcrylicCorner2.CornerRadius = UDim.new(0, 12)
+AcrylicCorner2.Parent = AcrylicEffect2
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Name = "_CHILD"
+UIStroke.Color = Color3.fromRGB(158, 114, 158)
+UIStroke.Transparency = 0.9
+UIStroke.Parent = MainFrame
+
+local SideIndicator = Instance.new("Frame")
+SideIndicator.Name = "sideindicator"
+SideIndicator.AnchorPoint = Vector2.new(0.5, 0)
+SideIndicator.BackgroundColor3 = Color3.fromRGB(255, 188, 254)
+SideIndicator.BorderSizePixel = 0
+SideIndicator.Position = UDim2.fromScale(0.5, 0)
+SideIndicator.Size = UDim2.new(1, -50, 0, 2)
+SideIndicator.Parent = MainFrame
+
+local SideIndicatorCorner = Instance.new("UICorner")
+SideIndicatorCorner.CornerRadius = UDim.new(0, 634)
+SideIndicatorCorner.Parent = SideIndicator
+
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Name = "title"
+TitleLabel.FontFace = Font.new("rbxassetid://12187361378", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+TitleLabel.Text = "SolixHub"
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TitleLabel.TextSize = 19
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Position = UDim2.fromOffset(37, 15)
+TitleLabel.Size = UDim2.new(0, 88, 0, 30)
+TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+TitleLabel.Parent = MainFrame
+
+local ControlsFrame = Instance.new("Frame")
+ControlsFrame.Name = "Frame"
+ControlsFrame.BackgroundTransparency = 1
+ControlsFrame.Position = UDim2.new(1, -75, 0, 15)
+ControlsFrame.Size = UDim2.new(0, 60, 0, 30)
+ControlsFrame.Parent = MainFrame
+
+local ControlsLayout = Instance.new("UIListLayout")
+ControlsLayout.FillDirection = Enum.FillDirection.Horizontal
+ControlsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+ControlsLayout.Padding = UDim.new(0, 6)
+ControlsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ControlsLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+ControlsLayout.Parent = ControlsFrame
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "Close"
+CloseButton.Text = ""
+CloseButton.BackgroundColor3 = Color3.fromRGB(252, 95, 83)
+CloseButton.Size = UDim2.fromOffset(7, 7)
+CloseButton.AutoButtonColor = false
+CloseButton.Parent = ControlsFrame
+
+local CloseButtonCorner = Instance.new("UICorner")
+CloseButtonCorner.CornerRadius = UDim.new(0, 50)
+CloseButtonCorner.Parent = CloseButton
+
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Name = "Minimize"
+MinimizeButton.Text = ""
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(242, 191, 60)
+MinimizeButton.Size = UDim2.fromOffset(7, 7)
+MinimizeButton.AutoButtonColor = false
+MinimizeButton.Parent = ControlsFrame
+
+local MinimizeButtonCorner = Instance.new("UICorner")
+MinimizeButtonCorner.CornerRadius = UDim.new(0, 50)
+MinimizeButtonCorner.Parent = MinimizeButton
+
+local OpenButton = Instance.new("TextButton")
+OpenButton.Name = "Open"
+OpenButton.Text = ""
+OpenButton.BackgroundColor3 = Color3.fromRGB(117, 166, 87)
+OpenButton.Size = UDim2.fromOffset(7, 7)
+OpenButton.AutoButtonColor = false
+OpenButton.Parent = ControlsFrame
+
+local OpenButtonCorner = Instance.new("UICorner")
+OpenButtonCorner.CornerRadius = UDim.new(0, 50)
+OpenButtonCorner.Parent = OpenButton
+
+local ContentFrame = Instance.new("Frame")
+ContentFrame.Name = "ContentFrame"
+ContentFrame.BackgroundTransparency = 1
+ContentFrame.Position = UDim2.fromOffset(0, 60)
+ContentFrame.Size = UDim2.new(1, 0, 1, -60)
+ContentFrame.Parent = MainFrame
+
+local GameLabel = Instance.new("TextLabel")
+GameLabel.Name = "GameLabel"
+GameLabel.FontFace = Font.new("rbxassetid://12187365364")
+GameLabel.Text = "Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+GameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+GameLabel.TextSize = 12
+GameLabel.BackgroundTransparency = 1
+GameLabel.Position = UDim2.fromOffset(20, 0)
+GameLabel.Size = UDim2.new(1, -40, 0, 20)
+GameLabel.Parent = ContentFrame
+
+local ButtonsSection = Instance.new("Frame")
+ButtonsSection.Name = "ButtonsSection"
+ButtonsSection.BackgroundTransparency = 1
+ButtonsSection.Position = UDim2.fromOffset(20, 25) 
+ButtonsSection.Size = UDim2.new(1, -40, 0, 180)
+ButtonsSection.Parent = ContentFrame
+
+local LinkvertiseButton = Instance.new("TextButton")
+LinkvertiseButton.Name = "LinkvertiseButton"
+LinkvertiseButton.FontFace = Font.new("rbxassetid://12187365364")
+LinkvertiseButton.Text = "Get Key (Linkvertise)" -- Removed "No longer required..." text
+LinkvertiseButton.TextColor3 = Color3.fromRGB(240, 240, 240)
+LinkvertiseButton.TextSize = 12
+LinkvertiseButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
+LinkvertiseButton.BackgroundTransparency = 0.5
+LinkvertiseButton.BorderSizePixel = 0
+LinkvertiseButton.Position = UDim2.fromOffset(0, 0)
+LinkvertiseButton.Size = UDim2.new(1, 0, 0, 40)
+LinkvertiseButton.Parent = ButtonsSection
+
+local LinkvertiseCorner = Instance.new("UICorner")
+LinkvertiseCorner.CornerRadius = UDim.new(0, 6)
+LinkvertiseCorner.Parent = LinkvertiseButton
+
+local lootlabsButton = Instance.new("TextButton")
+lootlabsButton.Name = "Button"
+lootlabsButton.FontFace = Font.new("rbxassetid://12187365364")
+lootlabsButton.Text = "Get Key (Lootlabs)" -- Removed "No longer required..." text
+lootlabsButton.TextColor3 = Color3.fromRGB(240, 240, 240)
+lootlabsButton.TextSize = 12
+lootlabsButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
+lootlabsButton.BackgroundTransparency = 0.5
+lootlabsButton.BorderSizePixel = 0
+lootlabsButton.Position = UDim2.fromOffset(0, 50)
+lootlabsButton.Size = UDim2.new(1, 0, 0, 40)
+lootlabsButton.Parent = ButtonsSection
+
+local lootlabsCorner = Instance.new("UICorner")
+lootlabsCorner.CornerRadius = UDim.new(0, 6)
+lootlabsCorner.Parent = lootlabsButton
+
+local DiscordButton = Instance.new("TextButton")
+DiscordButton.Name = "DiscordButton"
+DiscordButton.FontFace = Font.new("rbxassetid://12187365364")
+DiscordButton.Text = "Join Discord"
+DiscordButton.TextColor3 = Color3.fromRGB(240, 240, 240)
+DiscordButton.TextSize = 12
+DiscordButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
+DiscordButton.BackgroundTransparency = 0.5
+DiscordButton.BorderSizePixel = 0
+DiscordButton.Position = UDim2.fromOffset(0, 100)
+DiscordButton.Size = UDim2.new(1, 0, 0, 40)
+DiscordButton.Parent = ButtonsSection
+
+local DiscordCorner = Instance.new("UICorner")
+DiscordCorner.CornerRadius = UDim.new(0, 6)
+DiscordCorner.Parent = DiscordButton
+
+local FooterLabel = Instance.new("TextLabel")
+FooterLabel.Name = "FooterLabel"
+FooterLabel.FontFace = Font.new("rbxassetid://12187365364")
+FooterLabel.Text = "SolixHub © 2025 | All rights reserved"
+FooterLabel.TextColor3 = Color3.fromRGB(120, 120, 120)
+FooterLabel.TextSize = 12
+FooterLabel.BackgroundTransparency = 1
+FooterLabel.Position = UDim2.fromOffset(0, 150)
+FooterLabel.Size = UDim2.new(1, 0, 0, 20)
+FooterLabel.Parent = ButtonsSection
+
+-- End of UI element definitions
 
 local function createNotification(title, content, duration, color, parent)
     duration = duration or 5
@@ -176,8 +399,8 @@ local function createNotification(title, content, duration, color, parent)
     return Notification
 end
 
-local function executeScript()
-    -- This is the link you provided:
+local function executeGameScript()
+    -- This is the link to your "Rivals script" on GitHub
     local mainGameScriptUrl = "https://raw.githubusercontent.com/rblxscrapts/Roblox-/refs/heads/main/Rivals%20script" 
 
     local success, result = pcall(function()
@@ -193,227 +416,7 @@ local function executeScript()
     return true
 end
 
--- Define the main GUI frame before the main function
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "SolixHubLogin"
-ScreenGui.ResetOnSpawn = false
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
--- ScreenGui.Parent will be set later in main() to ensure PlayerGui exists
-
-local MainFrame = Instance.new("Frame")
-MainFrame.Name = "MainFrame"
-MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-MainFrame.BackgroundColor3 = Color3.fromRGB(16, 16, 16)
-MainFrame.BackgroundTransparency = 0.06
-MainFrame.BorderSizePixel = 0
-MainFrame.Position = UDim2.fromScale(0.5, 0.5)
-MainFrame.Size = UDim2.fromOffset(400, 370)
-MainFrame.Parent = ScreenGui
-
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = MainFrame
-
-local AcrylicEffect1 = Instance.new("ImageLabel")
-AcrylicEffect1.Name = "acrylicthing"
-AcrylicEffect1.Image = "rbxassetid://9968344105"
-AcrylicEffect1.ImageTransparency = 0.98
-AcrylicEffect1.ScaleType = Enum.ScaleType.Tile
-AcrylicEffect1.TileSize = UDim2.fromOffset(128, 128)
-AcrylicEffect1.BackgroundTransparency = 1
-AcrylicEffect1.Size = UDim2.fromScale(1, 1)
-AcrylicEffect1.ZIndex = 0
-AcrylicEffect1.Parent = MainFrame
-
-local AcrylicCorner1 = Instance.new("UICorner")
-AcrylicCorner1.CornerRadius = UDim.new(0, 12)
-AcrylicCorner1.Parent = AcrylicEffect1
-
-local AcrylicEffect2 = Instance.new("ImageLabel")
-AcrylicEffect2.Name = "acrylicthing"
-AcrylicEffect2.Image = "rbxassetid://9968344227"
-AcrylicEffect2.ImageTransparency = 0.9
-AcrylicEffect2.ScaleType = Enum.ScaleType.Tile
-AcrylicEffect2.TileSize = UDim2.fromOffset(128, 128)
-AcrylicEffect2.BackgroundTransparency = 1
-AcrylicEffect2.Size = UDim2.fromScale(1, 1)
-AcrylicEffect2.ZIndex = 0
-AcrylicEffect2.Parent = MainFrame
-
-local AcrylicCorner2 = Instance.new("UICorner")
-AcrylicCorner2.CornerRadius = UDim.new(0, 12)
-AcrylicCorner2.Parent = AcrylicEffect2
-
-local UIStroke = Instance.new("UIStroke")
-UIStroke.Name = "_CHILD"
-UIStroke.Color = Color3.fromRGB(158, 114, 158)
-UIStroke.Transparency = 0.9
-UIStroke.Parent = MainFrame
-
-local SideIndicator = Instance.new("Frame")
-SideIndicator.Name = "sideindicator"
-SideIndicator.AnchorPoint = Vector2.new(0.5, 0)
-SideIndicator.BackgroundColor3 = Color3.fromRGB(255, 188, 254)
-SideIndicator.BorderSizePixel = 0
-SideIndicator.Position = UDim2.fromScale(0.5, 0)
-SideIndicator.Size = UDim2.new(1, -50, 0, 2)
-SideIndicator.Parent = MainFrame
-
-local SideIndicatorCorner = Instance.new("UICorner")
-SideIndicatorCorner.CornerRadius = UDim.new(0, 634)
-SideIndicatorCorner.Parent = SideIndicator
-
-local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Name = "title"
-TitleLabel.FontFace = Font.new("rbxassetid://12187361378", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-TitleLabel.Text = "SolixHub"
-TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleLabel.TextSize = 19
-TitleLabel.BackgroundTransparency = 1
-TitleLabel.Position = UDim2.fromOffset(37, 15)
-TitleLabel.Size = UDim2.new(0, 88, 0, 30)
-TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-TitleLabel.Parent = MainFrame
-
-local ControlsFrame = Instance.new("Frame")
-ControlsFrame.Name = "Frame"
-ControlsFrame.BackgroundTransparency = 1
-ControlsFrame.Position = UDim2.new(1, -75, 0, 15)
-ControlsFrame.Size = UDim2.new(0, 60, 0, 30)
-ControlsFrame.Parent = MainFrame
-
-local ControlsLayout = Instance.new("UIListLayout")
-ControlsLayout.FillDirection = Enum.FillDirection.Horizontal
-ControlsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-ControlsLayout.Padding = UDim.new(0, 6)
-ControlsLayout.SortOrder = Enum.SortOrder.LayoutOrder
-ControlsLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-ControlsLayout.Parent = ControlsFrame
-
-local CloseButton = Instance.new("TextButton")
-CloseButton.Name = "Close"
-CloseButton.Text = ""
-CloseButton.BackgroundColor3 = Color3.fromRGB(252, 95, 83)
-CloseButton.Size = UDim2.fromOffset(7, 7)
-CloseButton.AutoButtonColor = false
-CloseButton.Parent = ControlsFrame
-
-local CloseButtonCorner = Instance.new("UICorner")
-CloseButtonCorner.CornerRadius = UDim.new(0, 50)
-CloseButtonCorner.Parent = CloseButton
-
-local MinimizeButton = Instance.new("TextButton")
-MinimizeButton.Name = "Minimize"
-MinimizeButton.Text = ""
-MinimizeButton.BackgroundColor3 = Color3.fromRGB(242, 191, 60)
-MinimizeButton.Size = UDim2.fromOffset(7, 7)
-MinimizeButton.AutoButtonColor = false
-MinimizeButton.Parent = ControlsFrame
-
-local MinimizeButtonCorner = Instance.new("UICorner")
-MinimizeButtonCorner.CornerRadius = UDim.new(0, 50)
-MinimizeButtonCorner.Parent = MinimizeButton
-
-local OpenButton = Instance.new("TextButton")
-OpenButton.Name = "Open"
-OpenButton.Text = ""
-OpenButton.BackgroundColor3 = Color3.fromRGB(117, 166, 87)
-OpenButton.Size = UDim2.fromOffset(7, 7)
-OpenButton.AutoButtonColor = false
-OpenButton.Parent = ControlsFrame
-
-local OpenButtonCorner = Instance.new("UICorner")
-OpenButtonCorner.CornerRadius = UDim.new(0, 50)
-OpenButtonCorner.Parent = OpenButton
-
-local ContentFrame = Instance.new("Frame")
-ContentFrame.Name = "ContentFrame"
-ContentFrame.BackgroundTransparency = 1
-ContentFrame.Position = UDim2.fromOffset(0, 60)
-ContentFrame.Size = UDim2.new(1, 0, 1, -60)
-ContentFrame.Parent = MainFrame
-
-local GameLabel = Instance.new("TextLabel")
-GameLabel.Name = "GameLabel"
-GameLabel.FontFace = Font.new("rbxassetid://12187365364")
-GameLabel.Text = "Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-GameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-GameLabel.TextSize = 12
-GameLabel.BackgroundTransparency = 1
-GameLabel.Position = UDim2.fromOffset(20, 0)
-GameLabel.Size = UDim2.new(1, -40, 0, 20)
-GameLabel.Parent = ContentFrame
-
--- Key Section and associated elements removed
-local ButtonsSection = Instance.new("Frame")
-ButtonsSection.Name = "ButtonsSection"
-ButtonsSection.BackgroundTransparency = 1
-ButtonsSection.Position = UDim2.fromOffset(20, 25) 
-ButtonsSection.Size = UDim2.new(1, -40, 0, 180)
-ButtonsSection.Parent = ContentFrame
-
-local LinkvertiseButton = Instance.new("TextButton")
-LinkvertiseButton.Name = "LinkvertiseButton"
-LinkvertiseButton.FontFace = Font.new("rbxassetid://12187365364")
-LinkvertiseButton.Text = "Get Key (Linkvertise) - (No longer required for script execution)"
-LinkvertiseButton.TextColor3 = Color3.fromRGB(240, 240, 240)
-LinkvertiseButton.TextSize = 12
-LinkvertiseButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
-LinkvertiseButton.BackgroundTransparency = 0.5
-LinkvertiseButton.BorderSizePixel = 0
-LinkvertiseButton.Position = UDim2.fromOffset(0, 0)
-LinkvertiseButton.Size = UDim2.new(1, 0, 0, 40)
-LinkvertiseButton.Parent = ButtonsSection
-
-local LinkvertiseCorner = Instance.new("UICorner")
-LinkvertiseCorner.CornerRadius = UDim.new(0, 6)
-LinkvertiseCorner.Parent = LinkvertiseButton
-
-local lootlabsButton = Instance.new("TextButton")
-lootlabsButton.Name = "Button"
-lootlabsButton.FontFace = Font.new("rbxassetid://12187365364")
-lootlabsButton.Text = "Get Key (lootlabs) - (No longer required for script execution)"
-lootlabsButton.TextColor3 = Color3.fromRGB(240, 240, 240)
-lootlabsButton.TextSize = 12
-lootlabsButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
-lootlabsButton.BackgroundTransparency = 0.5
-lootlabsButton.BorderSizePixel = 0
-lootlabsButton.Position = UDim2.fromOffset(0, 50)
-lootlabsButton.Size = UDim2.new(1, 0, 0, 40)
-lootlabsButton.Parent = ButtonsSection
-
-local lootlabsCorner = Instance.new("UICorner")
-lootlabsCorner.CornerRadius = UDim.new(0, 6)
-lootlabsCorner.Parent = lootlabsButton
-
-local DiscordButton = Instance.new("TextButton")
-DiscordButton.Name = "DiscordButton"
-DiscordButton.FontFace = Font.new("rbxassetid://12187365364")
-DiscordButton.Text = "Join Discord"
-DiscordButton.TextColor3 = Color3.fromRGB(240, 240, 240)
-DiscordButton.TextSize = 12
-DiscordButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
-DiscordButton.BackgroundTransparency = 0.5
-DiscordButton.BorderSizePixel = 0
-DiscordButton.Position = UDim2.fromOffset(0, 100)
-DiscordButton.Size = UDim2.new(1, 0, 0, 40)
-DiscordButton.Parent = ButtonsSection
-
-local DiscordCorner = Instance.new("UICorner")
-DiscordCorner.CornerRadius = UDim.new(0, 6)
-DiscordCorner.Parent = DiscordButton
-
-local FooterLabel = Instance.new("TextLabel")
-FooterLabel.Name = "FooterLabel"
-FooterLabel.FontFace = Font.new("rbxassetid://12187365364")
-FooterLabel.Text = "SolixHub © 2025 | All rights reserved"
-FooterLabel.TextColor3 = Color3.fromRGB(120, 120, 120)
-FooterLabel.TextSize = 12
-FooterLabel.BackgroundTransparency = 1
-FooterLabel.Position = UDim2.fromOffset(0, 150)
-FooterLabel.Size = UDim2.new(1, 0, 0, 20)
-FooterLabel.Parent = ButtonsSection
-
+-- Drag functionality for MainFrame
 local dragging = false
 local dragInput
 local dragStart
@@ -450,6 +453,7 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
+-- Button Hover Effects
 local function applyButtonHoverEffect(button)
     button.MouseEnter:Connect(function()
         TweenService:Create(button, TweenInfo.new(0.3), {BackgroundTransparency = 0.4}):Play()
@@ -464,6 +468,7 @@ applyButtonHoverEffect(LinkvertiseButton)
 applyButtonHoverEffect(lootlabsButton)
 applyButtonHoverEffect(DiscordButton)
 
+-- Button Click Actions
 LinkvertiseButton.MouseButton1Click:Connect(function()
     setclipboard("https://ads.luarmor.net/get_key?for=Solixhub_Free_KeySystem-OWlLHDMCHADk")
     createNotification("Copied", "Linkvertise link copied to clipboard!", 5, Color3.fromRGB(255, 188, 254), ScreenGui)
@@ -509,31 +514,27 @@ MinimizeButton.MouseButton1Click:Connect(function()
     end)
 end)
 
+-- Initial Setup and Script Execution on Load
 GameLabel.Text = "Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 GameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 
+-- Ensure the main UI is visible on start
+MainFrame.Visible = true 
+createNotification("SolixHub", "Welcome to SolixHub!", 5, Color3.fromRGB(255, 188, 254), ScreenGui)
 
-local function init()
-    ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
-    createNotification("SolixHub", "Welcome to SolixHub!", 5, Color3.fromRGB(255, 188, 254), ScreenGui)
-    
-    MainFrame.Visible = true -- Ensure the main UI is visible on start
+-- Attempt to execute the main game script immediately
+local execSuccess, execError = executeGameScript()
 
-    local execSuccess, execError = executeScript()
-    
-    if not execSuccess then
-        createNotification("Script Error", "Failed to load game: " .. execError, 5, Color3.fromRGB(255, 85, 85), ScreenGui)
-    else
-        -- If script loads successfully, give a success notification
-        createNotification("Success", "Game script loaded successfully!", 3, Color3.fromRGB(85, 255, 127), ScreenGui)
-    end
-
-    -- Always destroy the main GUI after the attempt to load the script
-    task.delay(1, function() -- Small delay to allow final notification to show
-        if ScreenGui and ScreenGui.Parent then -- Check if it still exists
-            ScreenGui:Destroy()
-        end
-    end)
+if not execSuccess then
+    createNotification("Script Error", "Failed to load game: " .. execError, 5, Color3.fromRGB(255, 85, 85), ScreenGui)
+else
+    createNotification("Success", "Game script loaded successfully!", 3, Color3.fromRGB(85, 255, 127), ScreenGui)
 end
 
-init()
+-- Automatically destroy the SolixHub GUI after a short delay
+-- This allows the final notification to be seen before the GUI disappears
+task.delay(3, function() 
+    if ScreenGui and ScreenGui.Parent then 
+        ScreenGui:Destroy()
+    end
+end)
