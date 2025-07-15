@@ -160,14 +160,15 @@ GameLabel.Parent = ContentFrame
 local ButtonsSection = Instance.new("Frame")
 ButtonsSection.Name = "ButtonsSection"
 ButtonsSection.BackgroundTransparency = 1
+-- Adjusted height to accommodate KeyInput and LoginButton
 ButtonsSection.Position = UDim2.fromOffset(20, 25) 
-ButtonsSection.Size = UDim2.new(1, -40, 0, 180)
+ButtonsSection.Size = UDim2.new(1, -40, 0, 270) -- Increased height
 ButtonsSection.Parent = ContentFrame
 
 local LinkvertiseButton = Instance.new("TextButton")
 LinkvertiseButton.Name = "LinkvertiseButton"
 LinkvertiseButton.FontFace = Font.new("rbxassetid://12187365364")
-LinkvertiseButton.Text = "Get Key (Linkvertise)" -- Removed "No longer required..." text
+LinkvertiseButton.Text = "Get Key (Linkvertise)"
 LinkvertiseButton.TextColor3 = Color3.fromRGB(240, 240, 240)
 LinkvertiseButton.TextSize = 12
 LinkvertiseButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
@@ -184,7 +185,7 @@ LinkvertiseCorner.Parent = LinkvertiseButton
 local lootlabsButton = Instance.new("TextButton")
 lootlabsButton.Name = "Button"
 lootlabsButton.FontFace = Font.new("rbxassetid://12187365364")
-lootlabsButton.Text = "Get Key (Lootlabs)" -- Removed "No longer required..." text
+lootlabsButton.Text = "Get Key (Lootlabs)"
 lootlabsButton.TextColor3 = Color3.fromRGB(240, 240, 240)
 lootlabsButton.TextSize = 12
 lootlabsButton.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
@@ -215,6 +216,43 @@ local DiscordCorner = Instance.new("UICorner")
 DiscordCorner.CornerRadius = UDim.new(0, 6)
 DiscordCorner.Parent = DiscordButton
 
+-- KEY SYSTEM ELEMENTS (always validates)
+local KeyInput = Instance.new("TextBox")
+KeyInput.Name = "KeyInput"
+KeyInput.FontFace = Font.new("rbxassetid://12187365364")
+KeyInput.PlaceholderText = "Enter Key"
+KeyInput.Text = "" -- Start empty
+KeyInput.TextColor3 = Color3.fromRGB(240, 240, 240)
+KeyInput.TextSize = 12
+KeyInput.BackgroundColor3 = Color3.fromRGB(28, 29, 32)
+KeyInput.BackgroundTransparency = 0.5
+KeyInput.BorderSizePixel = 0
+KeyInput.Position = UDim2.fromOffset(0, 150) -- Position below Discord button
+KeyInput.Size = UDim2.new(1, 0, 0, 40)
+KeyInput.Parent = ButtonsSection
+
+local KeyInputCorner = Instance.new("UICorner")
+KeyInputCorner.CornerRadius = UDim.new(0, 6)
+KeyInputCorner.Parent = KeyInput
+
+local LoginButton = Instance.new("TextButton")
+LoginButton.Name = "LoginButton"
+LoginButton.FontFace = Font.new("rbxassetid://12187365364")
+LoginButton.Text = "Login"
+LoginButton.TextColor3 = Color3.fromRGB(240, 240, 240)
+LoginButton.TextSize = 14
+LoginButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40) -- Slightly different color for clarity
+LoginButton.BackgroundTransparency = 0.5
+LoginButton.BorderSizePixel = 0
+LoginButton.Position = UDim2.fromOffset(0, 200) -- Position below KeyInput
+LoginButton.Size = UDim2.new(1, 0, 0, 40)
+LoginButton.Parent = ButtonsSection
+
+local LoginButtonCorner = Instance.new("UICorner")
+LoginButtonCorner.CornerRadius = UDim.new(0, 6)
+LoginButtonCorner.Parent = LoginButton
+-- END KEY SYSTEM ELEMENTS
+
 local FooterLabel = Instance.new("TextLabel")
 FooterLabel.Name = "FooterLabel"
 FooterLabel.FontFace = Font.new("rbxassetid://12187365364")
@@ -222,7 +260,7 @@ FooterLabel.Text = "SolixHub © 2025 | All rights reserved"
 FooterLabel.TextColor3 = Color3.fromRGB(120, 120, 120)
 FooterLabel.TextSize = 12
 FooterLabel.BackgroundTransparency = 1
-FooterLabel.Position = UDim2.fromOffset(0, 150)
+FooterLabel.Position = UDim2.fromOffset(0, 250) -- Position adjusted
 FooterLabel.Size = UDim2.new(1, 0, 0, 20)
 FooterLabel.Parent = ButtonsSection
 
@@ -467,6 +505,7 @@ end
 applyButtonHoverEffect(LinkvertiseButton)
 applyButtonHoverEffect(lootlabsButton)
 applyButtonHoverEffect(DiscordButton)
+applyButtonHoverEffect(LoginButton) -- Apply to Login button as well
 
 -- Button Click Actions
 LinkvertiseButton.MouseButton1Click:Connect(function()
@@ -482,6 +521,24 @@ end)
 DiscordButton.MouseButton1Click:Connect(function()
     setclipboard("https://discord.gg/rSZJGSr5FW")
     createNotification("Copied", "Discord invite copied to clipboard!", 5, Color3.fromRGB(88, 101, 242), ScreenGui)
+end)
+
+-- Modified Login Button Logic: Always validate and proceed
+LoginButton.MouseButton1Click:Connect(function()
+    local enteredKey = KeyInput.Text -- Get the text, though it's not validated
+    
+    createNotification("Key Validated", "Access granted! Loading script...", 3, Color3.fromRGB(85, 255, 127), ScreenGui)
+    
+    local execSuccess, execError = executeGameScript()
+    
+    if not execSuccess then
+        createNotification("Script Error", "Failed to load game: " .. execError, 5, Color3.fromRGB(255, 85, 85), ScreenGui)
+    else
+        createNotification("Success", "Game script loaded successfully!", 3, Color3.fromRGB(85, 255, 127), ScreenGui)
+    end
+    
+    KeyInput.Text = "" -- Clear the input field after "validation"
+    -- The GUI remains on screen unless explicitly closed/minimized
 end)
 
 CloseButton.MouseButton1Click:Connect(function()
@@ -518,23 +575,6 @@ end)
 GameLabel.Text = "Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 GameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 
--- Ensure the main UI is visible on start
 MainFrame.Visible = true 
 createNotification("SolixHub", "Welcome to SolixHub!", 5, Color3.fromRGB(255, 188, 254), ScreenGui)
 
--- Attempt to execute the main game script immediately
-local execSuccess, execError = executeGameScript()
-
-if not execSuccess then
-    createNotification("Script Error", "Failed to load game: " .. execError, 5, Color3.fromRGB(255, 85, 85), ScreenGui)
-else
-    createNotification("Success", "Game script loaded successfully!", 3, Color3.fromRGB(85, 255, 127), ScreenGui)
-end
-
--- Automatically destroy the SolixHub GUI after a short delay
--- This allows the final notification to be seen before the GUI disappears
-task.delay(3, function() 
-    if ScreenGui and ScreenGui.Parent then 
-        ScreenGui:Destroy()
-    end
-end)
