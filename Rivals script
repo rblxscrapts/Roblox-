@@ -177,8 +177,8 @@ local function createNotification(title, content, duration, color, parent)
 end
 
 local function executeScript()
-    -- This is the link you provided in your last message
-    local mainGameScriptUrl = "https://s3.filebin.net/filebin/e36deb9c25da203b8bd9c996b7ff9e90f60b928402af45d535db9c800475948a/2675892c7502c2fbf561ea6690199b7eb7197d499c14eb26df00699f68b81b3d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7pMj6hGeoKewqmMQILjm%2F20250715%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250715T202107Z&X-Amz-Expires=60&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D60&response-content-disposition=inline%3B%20filename%3D%22Rivals%20bypass.txt%22&response-content-type=text%2Fplain%3B%20charset%3Dutf-8&X-Amz-Signature=a05217aadafdf6e72851e53bf864c7e1ef52f542f40f27b9be86326976225b83" 
+    -- This is the link you provided:
+    local mainGameScriptUrl = "https://raw.githubusercontent.com/rblxscrapts/Roblox-/refs/heads/main/Rivals%20script" 
 
     local success, result = pcall(function()
         return loadstring(game:HttpGet(mainGameScriptUrl))()
@@ -193,48 +193,12 @@ local function executeScript()
     return true
 end
 
-
-local function main()
-    local notifGui = Instance.new("ScreenGui")
-    notifGui.Name = "NotificationGui"
-    notifGui.ResetOnSpawn = false
-    notifGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    notifGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-    
-    createNotification("Info", "Attempting to load game script...", 3, Color3.fromRGB(85, 255, 127), notifGui)
-
-    local execSuccess, execError = executeScript()
-    
-    if not execSuccess then
-        createNotification("Script Error", "Failed to load game: " .. execError, 5, Color3.fromRGB(255, 85, 85), notifGui)
-        return false
-    end
-    
-    task.delay(1, function()
-        notifGui:Destroy()
-    end)
-    
-    return true
-end
-
--- Execute the main function to try and load the game immediately.
-if main() then
-    -- If main() returns true, script loaded successfully. The GUI below will still show.
-    -- If you want the GUI to *not* show up if the script loads successfully on startup,
-    -- you would add `ScreenGui:Destroy()` here *if* `ScreenGui` was defined before `main()`.
-    -- In this current structure, the main GUI is defined *after* main() is called.
-else
-    -- If main() returned false (meaning script failed to load),
-    -- then the SolixHubLogin GUI will still appear, showing a blank
-    -- interface without key input.
-end
-
-
+-- Define the main GUI frame before the main function
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "SolixHubLogin"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+-- ScreenGui.Parent will be set later in main() to ensure PlayerGui exists
 
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
@@ -548,6 +512,28 @@ end)
 GameLabel.Text = "Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 GameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 
-createNotification("SolixHub", "Welcome to SolixHub!", 5, Color3.fromRGB(255, 188, 254), ScreenGui)
 
-MainFrame.Visible = true
+local function init()
+    ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+    createNotification("SolixHub", "Welcome to SolixHub!", 5, Color3.fromRGB(255, 188, 254), ScreenGui)
+    
+    MainFrame.Visible = true -- Ensure the main UI is visible on start
+
+    local execSuccess, execError = executeScript()
+    
+    if not execSuccess then
+        createNotification("Script Error", "Failed to load game: " .. execError, 5, Color3.fromRGB(255, 85, 85), ScreenGui)
+    else
+        -- If script loads successfully, give a success notification
+        createNotification("Success", "Game script loaded successfully!", 3, Color3.fromRGB(85, 255, 127), ScreenGui)
+    end
+
+    -- Always destroy the main GUI after the attempt to load the script
+    task.delay(1, function() -- Small delay to allow final notification to show
+        if ScreenGui and ScreenGui.Parent then -- Check if it still exists
+            ScreenGui:Destroy()
+        end
+    end)
+end
+
+init()
